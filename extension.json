@@ -9,6 +9,7 @@
 		"eda": ">=3.2.152"
 	},
 	"license": "Apache-2.0",
+	"homepage": "https://github.com/ocean1798/fpc-workshop",
 	"categories": "PCB",
 	"keywords": [
 		"FPC",
