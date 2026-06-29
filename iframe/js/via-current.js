@@ -16,7 +16,6 @@ window.FPC = window.FPC || {};
 		$requiredCurrent: null,
 		$perVia: null,
 		$minVias: null,
-		$perimeter: null,
 
 		init() {
 			this.$diameter = document.getElementById('vcDiameter');
@@ -25,10 +24,9 @@ window.FPC = window.FPC || {};
 			this.$requiredCurrent = document.getElementById('vcRequiredCurrent');
 			this.$perVia = document.getElementById('vcResultPerVia');
 			this.$minVias = document.getElementById('vcResultMinVias');
-			this.$perimeter = document.getElementById('vcResultPerimeter');
-
 			const self = this;
 			[this.$diameter, this.$wallThickness, this.$tempRise, this.$requiredCurrent].forEach((el) => {
+				if (!el) return;
 				el.addEventListener('change', () => { self.calculate(); });
 				el.addEventListener('input', () => { self.calculate(); });
 			});
@@ -45,7 +43,6 @@ window.FPC = window.FPC || {};
 			if (D <= 0 || tWall <= 0 || dT <= 0 || I_req <= 0) {
 				this.$perVia.textContent = '-- A';
 				this.$minVias.textContent = '-- 个';
-				this.$perimeter.textContent = '-- mm';
 				return;
 			}
 
@@ -67,7 +64,6 @@ window.FPC = window.FPC || {};
 
 			this.$perVia.textContent = `${I_perVia.toFixed(3)} A`;
 			this.$minVias.textContent = `${minVias} 个`;
-			this.$perimeter.textContent = `${perimeterMm.toFixed(3)} mm`;
 		},
 	};
 
