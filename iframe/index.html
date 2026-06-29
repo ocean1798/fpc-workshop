@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPC 工坊</title>
+<link rel="stylesheet" href="/iframe/css/theme.css" />
+<link rel="stylesheet" href="/iframe/css/layout.css" />
+<link rel="stylesheet" href="/iframe/css/components.css" />
+</head>
+<body>
+
+<div class="glass-panel">
+
+<div class="main-content">
+
+    <nav class="tab-bar" role="tablist">
+      <button class="tab-btn active" data-tab="press-pad" title="压PAD变换">
+        <svg class="tab-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="6" y="6" width="12" height="12" rx="1" fill="currentColor" opacity="0.5"/></svg>
+        <span class="tab-label">压PAD</span>
+      </button>
+      <button class="tab-btn" data-tab="pi-reinforce" title="补强厚度">
+        <svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="7" x2="16" y2="7" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="11" x2="16" y2="11" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="15" x2="12" y2="15" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span class="tab-label">补强厚度</span>
+      </button>
+      <button class="tab-btn" data-tab="trace-current" title="线路温升">
+        <svg class="tab-icon" viewBox="0 0 24 24"><polyline points="3 21 9 13 13 15 21 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="13" r="2" fill="currentColor" opacity="0.5"/></svg>
+        <span class="tab-label">线路温升</span>
+      </button>
+      <button class="tab-btn" data-tab="coil-resistance" title="线圈阻值">
+        <svg class="tab-icon" viewBox="0 0 24 24"><path d="M4 4h4v16H4V4zm12 0h4v16h-4V4zM8 7h8v2H8V7zm0 4h8v2H8v-2zm0 4h8v2H8v-2z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <span class="tab-label">阻值</span>
+      </button>
+      <button class="tab-btn" data-tab="via-current" title="过孔电流">
+        <svg class="tab-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.5"/></svg>
+        <span class="tab-label">过孔电流</span>
+      </button>
+    </nav>
+
+    <div class="tab-content-container">
+
+      <section class="tab-panel active" id="tab-press-pad">
+        <div class="main-content-inner">
+          <div class="left-col">
+	    <section class="card diagram-card">
+	      <div class="card-title">工艺原理示意图</div>
+
+	      <div class="dia-container">
+
+	        <!-- 截面图 -->
+	        <div class="dia-section-card">
+	          <div class="dia-section-title">截面图 <span class="hl">—— NSMD VS SMD 压PAD</span></div>
+	          <div class="dia-compare">
+	            <div class="dia-compare-box">
+	              <div class="dia-box-label">变换前：NSMD（不压PAD）</div>
+	              <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+	                <rect x="25" y="130" width="130" height="55" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" rx="3"/>
+	                <text x="90" y="162" font-size="22" fill="#fff" text-anchor="middle" font-weight="700">覆盖膜</text>
+	                <rect x="345" y="130" width="130" height="55" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" rx="3"/>
+	                <text x="410" y="162" font-size="22" fill="#fff" text-anchor="middle" font-weight="700">覆盖膜</text>
+	                <rect x="165" y="148" width="170" height="37" fill="#f59e0b" stroke="#d97706" stroke-width="1.5" rx="4"/>
+	                <text x="250" y="172" font-size="24" fill="#fff" text-anchor="middle" font-weight="700">焊盘铜箔</text>
+	                <defs>
+	                  <pattern id="fpc1d" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+	                    <rect width="10" height="10" fill="#d97706"/>
+	                    <line x1="0" y1="0" x2="0" y2="10" stroke="#b45309" stroke-width="2"/>
+	                  </pattern>
+	                </defs>
+	                <rect x="25" y="185" width="450" height="85" fill="url(#fpc1d)" stroke="#b45309" stroke-width="1.5" rx="4"/>
+	                <text x="250" y="235" font-size="24" fill="#fff" text-anchor="middle" font-weight="700">FPC 基材</text>
+	                <line x1="155" y1="82" x2="155" y2="130" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+	                <line x1="345" y1="82" x2="345" y2="130" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+	                <line x1="155" y1="88" x2="345" y2="88" stroke="#38bdf8" stroke-width="1.5"/>
+	                <line x1="155" y1="84" x2="155" y2="92" stroke="#38bdf8" stroke-width="1.5"/>
+	                <line x1="345" y1="84" x2="345" y2="92" stroke="#38bdf8" stroke-width="1.5"/>
+	                <text x="250" y="55" font-size="20" fill="#38bdf8" text-anchor="middle" font-weight="700">阻焊开窗 > 焊盘宽度</text>
+	              </svg>
+	              <div class="dia-conclusion">阻焊开窗 > 焊盘</div>
+	            </div>
+
+	            <div class="dia-arrow">
+	              <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+	                <defs><linearGradient id="ag1d" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient></defs>
+	                <path d="M4 18 L28 18 M22 12 L28 18 L22 24" stroke="url(#ag1d)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+	              </svg>
+	              <div>转换</div>
+	            </div>
+
+	            <div class="dia-compare-box">
+	              <div class="dia-box-label">变换后：SMD 压PAD</div>
+	              <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+	                <rect x="25" y="130" width="150" height="55" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" rx="3"/>
+	                <text x="65" y="162" font-size="22" fill="#fff" text-anchor="middle" font-weight="700">覆盖膜</text>
+	                <rect x="325" y="130" width="150" height="55" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" rx="3"/>
+	                <text x="435" y="162" font-size="22" fill="#fff" text-anchor="middle" font-weight="700">覆盖膜</text>
+	                <text x="475" y="95" font-size="20" fill="#4ade80" text-anchor="end" font-weight="700">覆盖膜压住边缘</text>
+	                <line x1="475" y1="100" x2="400" y2="130" stroke="#4ade80" stroke-width="1.5"/>
+	                <circle cx="400" cy="130" r="3" fill="#4ade80"/>
+	                <rect x="125" y="148" width="250" height="37" fill="#f59e0b" stroke="#d97706" stroke-width="1.5" rx="4"/>
+	                <text x="250" y="172" font-size="24" fill="#fff" text-anchor="middle" font-weight="700">焊盘铜箔</text>
+	                <defs>
+	                  <pattern id="fpc2d" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+	                    <rect width="10" height="10" fill="#d97706"/>
+	                    <line x1="0" y1="0" x2="0" y2="10" stroke="#b45309" stroke-width="2"/>
+	                  </pattern>
+	                </defs>
+	                <rect x="25" y="185" width="450" height="85" fill="url(#fpc2d)" stroke="#b45309" stroke-width="1.5" rx="4"/>
+	                <text x="250" y="235" font-size="24" fill="#fff" text-anchor="middle" font-weight="700">FPC 基材</text>
+	                <line x1="175" y1="82" x2="175" y2="130" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+	                <line x1="325" y1="82" x2="325" y2="130" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+	                <line x1="175" y1="88" x2="325" y2="88" stroke="#38bdf8" stroke-width="1.5"/>
+	                <line x1="175" y1="84" x2="175" y2="92" stroke="#38bdf8" stroke-width="1.5"/>
+	                <line x1="325" y1="84" x2="325" y2="92" stroke="#38bdf8" stroke-width="1.5"/>
+	                <text x="250" y="55" font-size="20" fill="#38bdf8" text-anchor="middle" font-weight="700">阻焊开窗 < 焊盘宽度</text>
+	              </svg>
+	              <div class="dia-conclusion">焊盘 > 开窗</div>
+	              <div class="dia-check-note"><div class="dia-check-icon">✓</div><span>中心露铜焊接面积保持不变</span></div>
+	            </div>
+	          </div>
+	        </div>
+
+	        <!-- 顶视图 -->
+	        <div class="dia-section-card">
+	          <div class="dia-section-title">顶视图 <span class="hl">—— 变换前后对比</span></div>
+	          <div class="dia-compare">
+	            <div class="dia-compare-box">
+	              <div class="dia-box-label">原始焊盘（NSMD）</div>
+	              <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
+	                <defs>
+	                  <mask id="maskNSMDd">
+	                    <rect x="0" y="0" width="420" height="300" fill="white"/>
+	                    <rect x="90" y="72" width="240" height="140" rx="4" fill="black"/>
+	                  </mask>
+	                </defs>
+	                <rect x="0" y="0" width="420" height="300" fill="rgba(34,197,94,0.25)" mask="url(#maskNSMDd)"/>
+	                <rect x="90" y="72" width="240" height="140" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6,4" rx="4"/>
+	                <text x="210" y="62" font-size="20" fill="#e0f2fe" text-anchor="middle" font-weight="700" style="text-shadow:0 0 4px #0f172a, 0 0 2px #0f172a;">阻焊开窗边缘</text>
+	                <rect x="100" y="82" width="220" height="120" fill="#f59e0b" stroke="#d97706" stroke-width="2" rx="4"/>
+	                <text x="210" y="148" font-size="24" fill="#fff" text-anchor="middle" font-weight="700">焊盘铜箔</text>
+	              </svg>
+	              <div class="dia-conclusion">阻焊外扩 > 焊盘</div>
+	            </div>
+
+	            <div class="dia-arrow">
+	              <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+	                <defs><linearGradient id="ag2d" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient></defs>
+	                <path d="M4 18 L28 18 M22 12 L28 18 L22 24" stroke="url(#ag2d)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+	              </svg>
+	              <div>转换</div>
+	            </div>
+
+	            <div class="dia-compare-box">
+	              <div class="dia-box-label">变换后焊盘（SMD）</div>
+	              <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
+	                <defs>
+	                  <mask id="maskSMDd">
+	                    <rect x="0" y="0" width="420" height="300" fill="white"/>
+	                    <rect x="100" y="92" width="220" height="120" rx="4" fill="black"/>
+	                  </mask>
+	                </defs>
+	                <rect x="70" y="62" width="280" height="170" fill="#f59e0b" stroke="#d97706" stroke-width="2" rx="4"/>
+	                <rect x="0" y="0" width="420" height="300" fill="rgba(34,197,94,0.35)" mask="url(#maskSMDd)"/>
+	                <rect x="100" y="92" width="220" height="120" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6,4" rx="4"/>
+	                <text x="210" y="86" font-size="20" fill="#e0f2fe" text-anchor="middle" font-weight="700" style="text-shadow:0 0 4px #0f172a, 0 0 2px #0f172a;">阻焊开窗边缘</text>
+	                <text x="210" y="158" font-size="24" fill="#fff" text-anchor="middle" font-weight="700">焊盘铜箔</text>
+	              </svg>
+	              <div class="dia-conclusion">焊盘外扩 > 阻焊内缩</div>
+	              <div class="dia-check-note"><div class="dia-check-icon">✓</div><span>中心露出焊接面积 = 原始尺寸</span></div>
+	            </div>
+	          </div>
+	        </div>
+
+	        <!-- 图例 -->
+	        <div class="dia-legend">
+	          <div class="dia-legend-item"><div class="dia-legend-swatch" style="background:#f59e0b;"></div><span>焊盘铜箔</span></div>
+	          <div class="dia-legend-item"><div class="dia-legend-swatch" style="background:#22c55e;"></div><span>覆盖膜/阻焊</span></div>
+	          <div class="dia-legend-item"><div class="dia-legend-dash"></div><span>阻焊开窗边缘</span></div>
+	          <div class="dia-legend-item"><div class="dia-legend-ptrn"></div><span>FPC 基材</span></div>
+	        </div>
+	      </div>
+	    </section>
+	  </div>
+
+	  <div class="right-col">
+
+	    <section class="pad-panel">
+	      <!-- 顶部固定：标题 + 计数 -->
+	      <div class="pad-panel-header">
+	        <div class="card-title">选中焊盘信息</div>
+	        <div class="pad-count-row">
+	          <span class="pad-count">已选中 <span class="pad-count-num" id="padCount">0</span> 个焊盘</span>
+	        </div>
+	      </div>
+
+	      <!-- 中部可滚动：表格 -->
+	      <div class="pad-table-scroll">
+	        <table class="pad-table" id="padTable">
+	          <thead>
+	            <tr>
+	              <th style="width:26px;"></th>
+	              <th>编号</th>
+	              <th>类型</th>
+	              <th>尺寸</th>
+	            </tr>
+	          </thead>
+	          <tbody id="padTableBody"></tbody>
+	        </table>
+	      </div>
+
+	      <!-- 底部固定：参数 + 按钮 + 状态 + 链接 -->
+	      <div class="pad-panel-footer">
+	        <div class="card-title">参数与操作</div>
+	        <div class="param-note">阻焊扩展值为负表示向内收缩</div>
+	        <div class="param-group">
+	          <div class="param-row">
+	            <span class="param-label">铜箔外扩</span>
+	            <span class="param-axis-label">宽</span>
+	            <div class="param-input-wrap param-input-compact">
+	              <input type="number" id="deltaX" value="0.3" step="0.01" min="0" max="10" />
+	            </div>
+	            <button id="lockBtn" class="lock-btn locked" title="锁定 宽/高 联动" aria-label="锁定 宽/高">
+	              <svg class="lock-svg" viewBox="0 0 1024 1024" width="16" height="16">
+	                <path class="lock-bracket" d="M420 691h-74c-98.1 0-178-79.9-178-178s79.9-178 178-178h73c19.9 0 36 16.1 36 36s-16.1 36-36 36h-73c-58.4 0-106 47.6-106 106s47.6 106 106 106h74c19.9 0 36 16.1 36 36s-16.1 36-36 36zM685 691h-74c-19.9 0-36-16.1-36-36s16.1-36 36-36h74c58.4 0 106-47.6 106-106s-47.6-106-106-106h-73c-19.9 0-36-16.1-36-36s16.1-36 36-36h73c98.1 0 178 79.9 178 178s-79.9 178-178 178z"/>
+	                <path class="lock-link" d="M637 549H390c-19.9 0-36-16.1-36-36s16.1-36 36-36h247c19.9 0 36 16.1 36 36s-16.1 36-36 36z"/>
+	              </svg>
+	            </button>
+	            <span class="param-axis-label">高</span>
+	            <div class="param-input-wrap param-input-compact">
+	              <input type="number" id="deltaY" value="0.3" step="0.01" min="0" max="10" disabled />
+	            </div>
+	            <span class="param-unit">mm</span>
+	            <span class="param-hint" id="lockHint"></span>
+	          </div>
+	          <div class="param-row">
+	            <span class="param-label">阻焊扩展值</span>
+	            <div class="param-input-wrap">
+	              <input type="number" id="maskExpansion" value="-0.3" step="0.01" max="0" />
+	              <span class="param-unit">mm</span>
+	            </div>
+	            <span class="param-hint"></span>
+	          </div>
+	        </div>
+	        <div id="progressContainer" style="display:none; margin:6px 0;">
+	          <div style="font-size:12px; color:var(--text-caption); margin-bottom:4px;">
+	            正在处理 <span id="progressCurrent">0</span>/<span id="progressTotal">0</span>...
+	          </div>
+	          <div style="width:100%; height:4px; background:var(--card-divider); border-radius:2px; overflow:hidden;">
+	            <div id="progressBar" style="width:0%; height:100%; background:var(--accent); border-radius:2px; transition:width 0.3s var(--ease-out);"></div>
+	          </div>
+	        </div>
+	        <div style="height:1px;background:var(--card-divider);margin:6px 0;"></div>
+	        <div class="action-row">
+	          <button id="restoreBtn" class="btn btn-secondary" disabled style="display:none">还原所有</button>
+	          <button id="applyBtn" class="btn btn-primary" disabled>应用变换</button>
+	        </div>
+	        <div class="status-row">
+	          <div class="status-msg">
+	            <span id="statusDot" class="status-dot ready"></span>
+	            <span id="statusText" class="status-text ready">就绪 — 请在画布中选中焊盘</span>
+	          </div>
+	        </div>
+	        <a id="docLink" class="external-link" href="https://www.jlc-fpc.com/technicalDocument/server_guide_52582.html" target="_blank" rel="noopener">
+	          <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M1 11 L11 1 M3 1 L11 1 L11 9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+	          嘉立创 FPC SMD 工艺说明
+	        </a>
+	      </div>
+	    </section>
+	  </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-pi-reinforce">
+        <div class="pi-calculator-layout">
+
+          <!-- ====== 左侧：2D 截面可视化 + 补强表格 ====== -->
+          <div class="pi-scene-panel">
+
+            <!-- 上 2/3：示意图区（独立竖向滚动） -->
+            <div class="pi-diagram-section">
+              <div class="pi-scene-viewport">
+                <div class="pi-scene-2d">
+                  <div class="pi-stack-wrapper">
+                    <div class="pi-stack-total" id="piStackTotal">
+                      <div class="pi-stack-arrow-top">↑</div>
+                      <div class="pi-stack-total-label" id="piTotalLabel">0.30mm</div>
+                      <div class="pi-stack-arrow-bottom">↓</div>
+                    </div>
+                    <div class="pi-stack-2d" id="piStack2d">
+
+                      <div class="pi-layer-2d pi-layer-1" id="piL1" data-name="PI补强" data-thick="0.225">
+                        <div class="pi-layer-face-2d" id="piF1">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">PI 补强</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV1">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL1" checked disabled>
+                          <span class="pi-val-text">0.225</span>
+                        </span>
+                      </div>
+
+                      <div class="pi-layer-2d pi-layer-2" id="piL2" data-name="覆盖膜" data-thick="0.0275">
+                        <div class="pi-layer-face-2d" id="piF2">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">覆盖膜</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV2">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL2" checked>
+                          <span class="pi-val-text">0.0275</span>
+                        </span>
+                      </div>
+
+                      <div class="pi-layer-2d pi-layer-3" id="piL3" data-name="铜箔" data-thick="0.012">
+                        <div class="pi-layer-face-2d" id="piF3">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">铜箔</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV3">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL3" checked>
+                          <span class="pi-val-text">0.012</span>
+                        </span>
+                      </div>
+
+                      <div class="pi-layer-2d pi-layer-4" id="piL4" data-name="粘接胶" data-thick="0.015">
+                        <div class="pi-layer-face-2d" id="piF4">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">粘接胶</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV4">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL4" checked disabled>
+                          <span class="pi-val-text">0.015</span>
+                        </span>
+                      </div>
+
+                      <div class="pi-layer-2d pi-layer-5" id="piL5" data-name="PET基材" data-thick="0.031">
+                        <div class="pi-layer-face-2d" id="piF5">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">PET 基材</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV5">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL5" checked disabled>
+                          <span class="pi-val-text">0.031</span>
+                        </span>
+                      </div>
+
+                      <div class="pi-layer-2d pi-layer-6" id="piL6" data-name="粘接胶" data-thick="0.015">
+                        <div class="pi-layer-face-2d" id="piF6">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">粘接胶</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV6">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL6" checked disabled>
+                          <span class="pi-val-text">0.015</span>
+                        </span>
+                      </div>
+
+                      <div class="pi-layer-2d pi-layer-7" id="piL7" data-name="铜箔" data-thick="0.012">
+                        <div class="pi-layer-face-2d" id="piF7">
+                          <div class="pi-layer-texture-2d"></div>
+                          <span class="pi-layer-name-2d">铜箔</span>
+                        </div>
+                        <span class="pi-layer-val-out" id="piV7">
+                          <input type="checkbox" class="pi-layer-toggle" data-layer="piL7" checked disabled>
+                          <span class="pi-val-text">0.012</span>
+                        </span>
+                      </div>
+
+                    </div><!-- .pi-stack-2d -->
+                  </div><!-- .pi-stack-wrapper -->
+
+                  <div class="pi-inactive-panel" id="piInactivePanel">
+                    <div class="pi-inactive-title">未使用（点击恢复）</div>
+                    <div class="pi-inactive-list" id="piInactiveList"></div>
+                  </div>
+                </div><!-- .pi-scene-2d -->
+              </div><!-- .pi-scene-viewport -->
+            </div><!-- .pi-diagram-section -->
+
+            <!-- 下 1/3：补强勾选表格（独立竖向滚动） -->
+            <div class="pi-stiffener-section">
+              <div class="pi-stiffener-header">
+                <span class="pi-stiffener-label">目标补强板</span>
+                <span class="pi-stiffener-count" id="piStiffenerCount"></span>
+              </div>
+              <div class="pi-stiffener-scroll">
+                <table class="pi-stiffener-table" id="piStiffenerTable">
+                  <thead>
+                    <tr>
+                      <th class="pi-stiff-col-check"></th>
+                      <th>层</th>
+                      <th>材质</th>
+                      <th>厚度</th>
+                    </tr>
+                  </thead>
+                  <tbody id="piStiffenerTableBody"></tbody>
+                </table>
+                <div class="pi-stiffener-empty" id="piStiffenerEmpty">在画布选中补强或从列表选择</div>
+              </div>
+            </div><!-- .pi-stiffener-section -->
+
+          </div><!-- .pi-scene-panel -->
+
+          <!-- ====== 右侧：参数面板 ====== -->
+          <div class="pi-param-panel">
+            <div class="pi-param-card">
+              <div class="pi-param-card-title">⚙ 参数</div>
+
+              <div class="pi-param-row">
+                <label>总厚度 (mm)</label>
+                <input type="number" id="piTotalThickness" value="0.30" step="0.01" min="0.1" max="2.0">
+              </div>
+
+              <div class="pi-param-row">
+                <label>类型</label>
+                <div class="pi-radio-group">
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piBoardType" id="piTypeDouble" value="double" checked>
+                    <label class="pi-radio-label" for="piTypeDouble">双面板</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piBoardType" id="piTypeSingle" value="single">
+                    <label class="pi-radio-label" for="piTypeSingle">单面板</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pi-param-row">
+                <label>板厚</label>
+                <div class="pi-thickness-picker" id="piThicknessPicker"></div>
+              </div>
+
+              <div class="pi-param-row" id="piCopperRow">
+                <label>背面有铜</label>
+                <div class="pi-radio-group">
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piHasCopper" id="piHasCopperYes" value="true" checked>
+                    <label class="pi-radio-label" for="piHasCopperYes">有铜</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piHasCopper" id="piHasCopperNo" value="false">
+                    <label class="pi-radio-label" for="piHasCopperNo">无铜</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pi-param-row" id="piCoverRow">
+                <label>覆盖膜厚度/颜色</label>
+                <div class="pi-cover-picker" id="piCoverPicker">
+                  <div class="pi-cover-option">
+                    <input type="radio" name="piCoverType" id="piCoverYellow" value="yellow" checked>
+                    <label class="pi-cover-label" for="piCoverYellow">
+                      <span class="pi-cover-dots"><span class="pi-dot pi-dot-yellow"></span><span class="pi-dot pi-dot-black"></span></span>
+                      <span class="pi-cover-val" id="piValYellow">0.0275</span>
+                    </label>
+                  </div>
+                  <div class="pi-cover-option">
+                    <input type="radio" name="piCoverType" id="piCoverWhite" value="white">
+                    <label class="pi-cover-label" for="piCoverWhite">
+                      <span class="pi-cover-dots"><span class="pi-dot pi-dot-white"></span></span>
+                      <span class="pi-cover-val" id="piValWhite">0.0405</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="pi-cover-readonly" id="piCoverReadonly" style="display:none;">
+                  <span class="pi-cover-dots"><span class="pi-dot pi-dot-white"></span></span>
+                  <span class="pi-cover-val" id="piValTransparent">0.0500</span>
+                </div>
+              </div>
+            </div><!-- .pi-param-card -->
+
+            <div class="pi-param-card">
+              <div class="pi-param-card-title">📊 计算</div>
+
+              <div class="pi-ruler-container" id="piRulerContainer">
+                <div class="pi-ruler-legend">
+                  <div class="pi-legend-track">
+                    <div class="pi-legend-item" style="top: -18px;">
+                      <span class="pi-legend-dot" style="background:#22c55e;"></span>
+                      <span class="pi-legend-text">建议厚度</span>
+                    </div>
+                    <div class="pi-legend-item" style="top: 15px;">
+                      <span class="pi-legend-tick"></span>
+                      <span class="pi-legend-text">可选厚度</span>
+                    </div>
+                    <div class="pi-legend-item" style="top: 52px;">
+                      <span class="pi-legend-dot" style="background:#6b7280;"></span>
+                      <span class="pi-legend-text">精准厚度</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pi-ruler-track" id="piRulerTrack"></div>
+              </div>
+
+              <div class="pi-param-row" style="margin-top:10px;">
+                <label>材质</label>
+                <div class="pi-radio-group">
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piMaterial" id="piMatPi" value="pi" checked>
+                    <label class="pi-radio-label" for="piMatPi">PI</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piMaterial" id="piMatFr4" value="fr4">
+                    <label class="pi-radio-label" for="piMatFr4">FR4</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="piMaterial" id="piMatSteel" value="steel">
+                    <label class="pi-radio-label" for="piMatSteel">钢片</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pi-material-info" id="piMaterialInfo">
+                PI 补强：柔韧性好，常用于金手指插拨产品，推荐使用。
+              </div>
+
+              <div class="pi-action-bar">
+                <button class="pi-btn pi-btn-primary" id="piApplyBtn">应用</button>
+              </div>
+            </div><!-- .pi-param-card -->
+          </div><!-- .pi-param-panel -->
+
+        </div><!-- .pi-calculator-layout -->
+      </section>
+      <section class="tab-panel" id="tab-trace-current">
+        <div class="calculator-layout">
+          <div class="calc-form">
+            <div class="calc-form-title">线路温升计算 (IPC-2221)</div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>电流：</span>
+              <div class="calc-form-input">
+                <input type="number" id="tcCurrent" value="1" step="0.1" min="0.01" />
+                <span class="calc-form-unit">A</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>线路长度：</span>
+              <div class="calc-form-input">
+                <input type="number" id="tcLength" value="50" step="1" min="0.1" />
+                <span class="calc-form-unit">mm</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>铜厚：</span>
+              <div class="calc-form-radio">
+                <label><input type="radio" name="tcCopperThickness" value="12"> 0.33oz (12μm)</label>
+                <label><input type="radio" name="tcCopperThickness" value="18"> 0.5oz (18μm)</label>
+                <label><input type="radio" name="tcCopperThickness" value="35" checked> 1.0oz (35μm)</label>
+                <label><input type="radio" name="tcCopperThickness" value="70"> 2.0oz (70μm)</label>
+                <label class="calc-radio-custom">
+                  <input type="radio" name="tcCopperThickness" value="custom"> 自定义
+                  <input type="number" id="tcCopperThicknessCustom" value="35" min="1" step="1" />
+                  <span class="calc-form-unit">μm</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label">跟踪层：</span>
+              <div class="calc-form-radio">
+                <label><input type="radio" name="tcLayerPos" value="external" checked> 外层（空气中）</label>
+                <label><input type="radio" name="tcLayerPos" value="internal"> 内层</label>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>环境温度：</span>
+              <div class="calc-form-input">
+                <input type="number" id="tcAmbientTemp" value="25" step="1" min="0" max="125" />
+                <span class="calc-form-unit">°C</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>允许温升：</span>
+              <div class="calc-form-input">
+                <input type="number" id="tcTempRise" value="10" step="1" min="1" max="100" />
+                <span class="calc-form-unit">°C</span>
+              </div>
+            </div>
+
+            <div class="calc-divider"></div>
+
+            <div class="calc-result-item">
+              <span class="calc-result-label">所需线宽：</span>
+              <span class="calc-result-value" id="tcResultWidth">-- mm</span>
+            </div>
+            <div class="calc-result-item">
+              <span class="calc-result-label">轨道电阻：</span>
+              <span class="calc-result-value" id="tcResultResistance">-- mΩ</span>
+            </div>
+            <div class="calc-result-item">
+              <span class="calc-result-label">电压降：</span>
+              <span class="calc-result-value" id="tcResultVoltageDrop">-- mV</span>
+            </div>
+            <div class="calc-result-item">
+              <span class="calc-result-label">功率损耗：</span>
+              <span class="calc-result-value" id="tcResultPowerLoss">-- mW</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="tab-coil-resistance">
+        <div class="calculator-layout">
+          <div class="calc-form">
+            <div class="calc-form-title">线圈板阻值计算</div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>计算模式：</span>
+              <div class="calc-form-radio">
+                <label><input type="radio" name="crMode" value="length" checked> 算线长</label>
+                <label><input type="radio" name="crMode" value="width"> 算线宽</label>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label">电阻率 (ρ)：</span>
+              <div class="calc-form-input">
+                <span class="calc-form-unit" style="font-family:'JetBrains Mono',monospace; color:var(--text-body);">18.51 mΩ·mm²/m</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>铜厚：</span>
+              <div class="calc-form-input">
+                <input type="number" id="crCopperThickness" value="35" step="1" min="1" />
+                <span class="calc-form-unit">μm</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item" id="crTargetResistanceRow">
+              <span class="calc-form-label"><span class="req">*</span>电阻：</span>
+              <div class="calc-form-input">
+                <input type="number" id="crTargetResistance" value="5" step="0.1" min="0.01" />
+                <span class="calc-form-unit">Ω</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item" id="crLineWidthRow">
+              <span class="calc-form-label"><span class="req">*</span>线宽：</span>
+              <div class="calc-form-input">
+                <input type="number" id="crLineWidth" value="0.2" step="0.01" min="0.01" />
+                <span class="calc-form-unit">mm</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item" id="crLineLengthRow" style="display:none">
+              <span class="calc-form-label"><span class="req">*</span>线长：</span>
+              <div class="calc-form-input">
+                <input type="number" id="crLineLength" value="100" step="1" min="0.1" />
+                <span class="calc-form-unit">mm</span>
+              </div>
+            </div>
+
+            <div class="calc-divider"></div>
+
+            <div class="calc-result-item" id="crResultLengthItem">
+              <span class="calc-result-label">需要线长：</span>
+              <span class="calc-result-value" id="crResultLength">-- mm</span>
+            </div>
+            <div class="calc-result-item" id="crResultWidthItem">
+              <span class="calc-result-label">需要线宽：</span>
+              <span class="calc-result-value" id="crResultWidth">-- mm</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="tab-via-current">
+        <div class="calculator-layout">
+          <div class="calc-form">
+            <div class="calc-form-title">过孔电流计算 (IPC-2221)</div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>最大温升：</span>
+              <div class="calc-form-input">
+                <input type="number" id="vcTempRise" value="10" step="1" min="1" max="100" />
+                <span class="calc-form-unit">°C</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>孔内径：</span>
+              <div class="calc-form-input">
+                <input type="number" id="vcDiameter" value="0.3" step="0.05" min="0.05" />
+                <span class="calc-form-unit">mm</span>
+              </div>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>孔铜厚：</span>
+              <div class="calc-form-input">
+                <input type="number" id="vcWallThickness" value="10" step="1" min="1" />
+                <span class="calc-form-unit">μm</span>
+              </div>
+            </div>
+
+            <div class="calc-divider"></div>
+
+            <div class="calc-result-item">
+              <span class="calc-result-label">每孔最大电流：</span>
+              <span class="calc-result-value" id="vcResultPerVia">-- A</span>
+            </div>
+
+            <div class="calc-form-item">
+              <span class="calc-form-label"><span class="req">*</span>需流过电流：</span>
+              <div class="calc-form-input">
+                <input type="number" id="vcRequiredCurrent" value="2" step="0.1" min="0.01" />
+                <span class="calc-form-unit">A</span>
+              </div>
+            </div>
+
+            <div class="calc-result-item">
+              <span class="calc-result-label">最少过孔数：</span>
+              <span class="calc-result-value" id="vcResultMinVias">-- 个</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- .tab-content-container -->
+  </div><!-- .main-content -->
+
+</div><!-- .glass-panel -->
+
+<script src="/iframe/js/core.js"></script>
+<script src="/iframe/js/press-pad.js"></script>
+<script src="/iframe/js/pi-calculator.js"></script>
+<script src="/iframe/js/trace-current.js"></script>
+<script src="/iframe/js/coil-resistance.js"></script>
+<script src="/iframe/js/via-current.js"></script>
+<script>
+  FPC.PiCalculator.init();
+  FPC.TraceCurrentCalc.init();
+  FPC.CoilResistanceCalc.init();
+  FPC.ViaCurrentCalc.init();
+</script>
+
+</body>
+</html>

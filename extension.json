@@ -1,0 +1,39 @@
+{
+	"name": "fpc-workshop",
+	"uuid": "2fab9af7377a4a069084f51d9f11fc3f",
+	"displayName": "FPC 工坊",
+	"description": "焊盘阻焊压PAD 一键变换，NSMD → SMD 自动转换，提升 FPC 焊盘结合力",
+	"version": "26.6.21",
+	"publisher": "Ocean",
+	"engines": {
+		"eda": ">=3.2.152"
+	},
+	"license": "Apache-2.0",
+	"categories": "PCB",
+	"keywords": [
+		"FPC",
+		"SMD",
+		"压PAD",
+		"焊盘",
+		"阻焊"
+	],
+	"images": {
+		"logo": "./images/logo.png"
+	},
+	"entry": "./dist/index",
+	"headerMenus": {
+		"pcb": [
+			{
+				"id": "FpcWorkshop",
+				"title": "FPC 工坊",
+				"menuItems": [
+					{
+						"id": "OpenFpcWorkshop",
+						"title": "打开 FPC 工坊",
+						"registerFn": "openFpcWorkshop"
+					}
+				]
+			}
+		]
+	}
+}
