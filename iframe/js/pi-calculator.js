@@ -15,7 +15,7 @@
  *
  * 公式: PI = 总厚度 - (覆盖膜 + 铜箔 + 粘接胶 + 基材 + 粘接胶 + 铜箔)
  */
-const FPC = window.FPC || {};
+window.FPC = window.FPC || {};
 
 (function () {
 	'use strict';

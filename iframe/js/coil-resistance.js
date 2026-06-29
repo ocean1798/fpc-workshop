@@ -2,7 +2,7 @@
  * FPC Workshop — Coil Resistance Calculator
  * 线圈板阻值计算器：算线长 / 算线宽 双模式
  */
-const FPC = window.FPC || {};
+window.FPC = window.FPC || {};
 
 (function () {
 	'use strict';

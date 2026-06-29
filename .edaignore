@@ -16,3 +16,6 @@
 /tsconfig.json
 .eslintcache
 debug.log
+/image/README/
+/jlc-pi-reference.png
+ARCHITECTURE.md

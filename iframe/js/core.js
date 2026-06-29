@@ -2,7 +2,7 @@
  * FPC Workshop — Core Module
  * 状态机、EDA 连接、轮询、主题、工具函数、Tab 切换
  */
-const FPC = window.FPC || {};
+window.FPC = window.FPC || {};
 
 (function () {
 	'use strict';

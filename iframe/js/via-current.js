@@ -2,7 +2,7 @@
  * FPC Workshop — Via Current Calculator (IPC-2221)
  * 过孔电流计算器
  */
-const FPC = window.FPC || {};
+window.FPC = window.FPC || {};
 
 (function () {
 	'use strict';

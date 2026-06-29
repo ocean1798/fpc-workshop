@@ -2,7 +2,7 @@
  * FPC Workshop — Trace Current Calculator (IPC-2221)
  * 线路耐电流计算器
  */
-const FPC = window.FPC || {};
+window.FPC = window.FPC || {};
 
 (function () {
 	'use strict';

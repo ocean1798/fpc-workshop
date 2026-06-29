@@ -2,7 +2,7 @@
  * FPC Workshop — Press-PAD Transform Module
  * 焊盘选择、变换、还原、表格渲染
  */
-const FPC = window.FPC || {};
+window.FPC = window.FPC || {};
 
 (function () {
 	'use strict';
