@@ -1,7 +1,11 @@
 {
 	"name": "fpc-workshop",
-	"version": "26.6.21",
-	"description": "焊盘阻焊压PAD 一键变换，NSMD → SMD 自动转换",
+	"version": "26.7.2",
+	"description": "FPC 设计增强工具集：压PAD焊盘变换 · PI补强厚度计算 · 走线载流/线圈阻值/过孔电流快速估算",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ocean1798/fpc-workshop"
+	},
 	"author": "JLCEDA <support@lceda.cn>",
 	"license": "Apache-2.0",
 	"homepage": "https://pro.lceda.cn/",
