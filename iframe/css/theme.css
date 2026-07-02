@@ -1,6 +1,7 @@
 /* theme.css - Design tokens and theme variables. Extracted from index.html <style> */
 /* ========== Fonts ========== */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+/* JetBrains Mono via Google Fonts removed — blocked in China.
+   Fallback chain: SF Mono (macOS) → Consolas (Windows) → monospace */
 
 /* ========== Design Tokens (Dark Theme - Apple Style) ========== */
 :root, [data-theme="dark"] {

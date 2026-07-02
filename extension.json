@@ -3,7 +3,7 @@
 	"uuid": "2fab9af7377a4a069084f51d9f11fc3f",
 	"displayName": "FPC 工坊",
 	"description": "FPC 设计增强工具集：压PAD焊盘变换 · PI补强厚度计算 · 走线载流/线圈阻值/过孔电流快速估算",
-	"version": "26.7.2",
+	"version": "26.7.3",
 	"publisher": "Ocean",
 	"engines": {
 		"eda": ">=3.2.152"
