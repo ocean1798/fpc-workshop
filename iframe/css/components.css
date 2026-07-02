@@ -307,6 +307,27 @@
   50%      { opacity: 0.35; }
 }
 
+/* ========================================================================
+   Trace Current — SVG Chart Transitions
+   ======================================================================== */
+
+/* Chart dot hover */
+#tcChartDot {
+  transition: cx 0.25s var(--ease-out), cy 0.25s var(--ease-out);
+}
+#tcChartDot:hover {
+  r: 9;
+}
+#tcChartDot.dragging {
+  cursor: grabbing;
+  r: 9;
+}
+
+/* Iso curve transition */
+#tcIsoCurve {
+  transition: d 0.3s var(--ease-out);
+}
+
 .status-bar-dot {
   width: 6px;
   height: 6px;

@@ -8,7 +8,7 @@ FPC (Flexible Printed Circuit) design enhancement tool for stiffener design, pad
 
 ### Press-PAD
 
-![1782721480294](image/README/1782721480294.png)
+![Press-PAD](images/README_press-pad.png)
 
 One-click solder mask expansion on selected pads to enhance FPC bonding strength. Supports NSMD ↔ SMD auto-conversion.
 
@@ -18,7 +18,7 @@ One-click solder mask expansion on selected pads to enhance FPC bonding strength
 
 ### PI Stiffener Calculator
 
-![1782721486764](image/README/1782721486764.png)
+![PI Stiffener](images/README_pi-stiffener.png)
 
 Precise PI reinforcement thickness calculation for gold finger areas. Derives standard PI thickness from total FPC thickness, layer stack, and material type.
 

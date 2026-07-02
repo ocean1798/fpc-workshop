@@ -521,96 +521,259 @@
         </div><!-- .pi-calculator-layout -->
       </section>
       <section class="tab-panel" id="tab-trace-current">
-        <div class="calculator-layout">
-          <div class="calc-form">
-            <div class="calc-form-title">线路温升计算 (IPC-2221)</div>
+        <div class="tc-calculator-layout">
 
-            <div class="calc-form-item">
-              <span class="calc-form-label"><span class="req">*</span>电流：</span>
-              <div class="calc-form-input">
-                <input type="number" id="tcCurrent" value="1" step="0.1" min="0.01" />
-                <span class="calc-form-unit">A</span>
+          <!-- ===== LEFT 48%: I-W SVG Chart ===== -->
+          <div class="tc-chart-panel">
+            <!-- IPC-2221 formula line -->
+            <div class="tc-chart-formula">
+              I = k · ΔT<sup>0.44</sup> · A<sup>0.725</sup>
+              <span class="tc-chart-formula-note">k=0.048 / 0.024</span>
+            </div>
+
+            <!-- SVG I-W Chart -->
+            <div class="tc-chart-container">
+              <svg id="tcIwChart" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <g id="tcChartGrid"></g>
+                <line x1="50" y1="10" x2="50" y2="270" stroke="var(--text-caption)" stroke-width="1"/>
+                <line x1="50" y1="270" x2="390" y2="270" stroke="var(--text-caption)" stroke-width="1"/>
+                <path id="tcIsoCurve" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" d=""/>
+                <circle id="tcChartDot" cx="150" cy="180" r="7" fill="var(--accent)" stroke="#fff" stroke-width="2" cursor="grab"/>
+                <line id="tcProjX" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4,3" opacity="0.35"/>
+                <line id="tcProjY" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4,3" opacity="0.35"/>
+                <text x="390" y="288" text-anchor="end" font-size="11" fill="var(--text-caption)">I (A)</text>
+                <text id="tcChartYLabel" x="44" y="14" text-anchor="end" font-size="11" fill="var(--text-caption)">W (mm)</text>
+              </svg>
+            </div>
+
+            <!-- Chart input readout -->
+            <div class="tc-chart-readout">
+              <div class="tc-chart-readout-item">
+                <span class="tc-chart-readout-label">I</span>
+                <input type="number" id="tcChartI" value="1" step="0.1" min="0.01" class="tc-chart-readout-input" />
+                <span class="tc-chart-readout-unit">A</span>
               </div>
-            </div>
-
-            <div class="calc-form-item">
-              <span class="calc-form-label"><span class="req">*</span>线路长度：</span>
-              <div class="calc-form-input">
-                <input type="number" id="tcLength" value="50" step="1" min="0.1" />
-                <span class="calc-form-unit">mm</span>
+              <div class="tc-chart-readout-item">
+                <span class="tc-chart-readout-label" id="tcChartLabel2">W</span>
+                <input type="number" id="tcChartW" value="0.35" step="0.01" min="0.01" class="tc-chart-readout-input" />
+                <span class="tc-chart-readout-unit" id="tcChartUnit2">mm</span>
               </div>
-            </div>
-
-            <div class="calc-form-item">
-              <span class="calc-form-label"><span class="req">*</span>铜厚：</span>
-              <div class="calc-form-radio">
-                <label><input type="radio" name="tcCopperThickness" value="12"> 0.33oz (12μm)</label>
-                <label><input type="radio" name="tcCopperThickness" value="18"> 0.5oz (18μm)</label>
-                <label><input type="radio" name="tcCopperThickness" value="35" checked> 1.0oz (35μm)</label>
-                <label><input type="radio" name="tcCopperThickness" value="70"> 2.0oz (70μm)</label>
-                <label class="calc-radio-custom">
-                  <input type="radio" name="tcCopperThickness" value="custom"> 自定义
-                  <input type="number" id="tcCopperThicknessCustom" value="35" min="1" step="1" />
-                  <span class="calc-form-unit">μm</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="calc-form-item">
-              <span class="calc-form-label">跟踪层：</span>
-              <div class="calc-form-radio">
-                <label><input type="radio" name="tcLayerPos" value="external" checked> 外层（空气中）</label>
-                <label><input type="radio" name="tcLayerPos" value="internal"> 内层</label>
-              </div>
-            </div>
-
-            <div class="calc-form-item">
-              <span class="calc-form-label"><span class="req">*</span>环境温度：</span>
-              <div class="calc-form-input">
-                <input type="number" id="tcAmbientTemp" value="25" step="1" min="0" max="125" />
-                <span class="calc-form-unit">°C</span>
-              </div>
-            </div>
-
-            <div class="calc-form-item">
-              <span class="calc-form-label"><span class="req">*</span>允许温升：</span>
-              <div class="calc-form-input">
-                <input type="number" id="tcTempRise" value="10" step="1" min="1" max="100" />
-                <span class="calc-form-unit">°C</span>
-              </div>
-            </div>
-
-            <div class="calc-divider"></div>
-
-            <div class="calc-result-item">
-              <span class="calc-result-label">所需线宽：</span>
-              <span class="calc-result-value" id="tcResultWidth">-- mm</span>
-            </div>
-            <div class="calc-result-item">
-              <span class="calc-result-label">轨道电阻：</span>
-              <span class="calc-result-value" id="tcResultResistance">-- mΩ</span>
-            </div>
-            <div class="calc-result-item">
-              <span class="calc-result-label">电压降：</span>
-              <span class="calc-result-value" id="tcResultVoltageDrop">-- mV</span>
-            </div>
-            <div class="calc-result-item">
-              <span class="calc-result-label">功率损耗：</span>
-              <span class="calc-result-value" id="tcResultPowerLoss">-- mW</span>
             </div>
           </div>
+
+          <!-- ===== RIGHT 52%: Data Dashboard + Parameter Cards ===== -->
+          <div class="tc-param-panel">
+
+            <!-- Card 1: Selection Status -->
+            <div class="tc-param-card">
+              <div class="tc-param-card-title">🖱 画布选择</div>
+              <div class="tc-sel-status">
+                <span class="tc-sel-dot" id="tcSelDot"></span>
+                <span class="tc-sel-text" id="tcSelText">未选中走线</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Parameters -->
+            <div class="tc-param-card">
+              <div class="tc-param-card-title">⚙ 参数</div>
+              <div class="tc-param-row">
+                <label>铜厚</label>
+                <div class="pi-radio-group" id="tcCopperSeg">
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcCopperThickness" id="tcCopper12" value="12">
+                    <label class="pi-radio-label" for="tcCopper12">0.33oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcCopperThickness" id="tcCopper18" value="18">
+                    <label class="pi-radio-label" for="tcCopper18">0.5oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcCopperThickness" id="tcCopper35" value="35" checked>
+                    <label class="pi-radio-label" for="tcCopper35">1.0oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcCopperThickness" id="tcCopper70" value="70">
+                    <label class="pi-radio-label" for="tcCopper70">2.0oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcCopperThickness" id="tcCopperCustom" value="custom">
+                    <label class="pi-radio-label" for="tcCopperCustom">自定义</label>
+                  </div>
+                </div>
+                <div class="tc-custom-input" id="tcCopperCustomWrap" hidden>
+                  <input type="number" id="tcCopperThicknessCustom" value="35" min="1" step="1" />
+                  <span class="calc-form-unit">μm</span>
+                </div>
+              </div>
+
+              <div class="tc-param-row">
+                <label>层别</label>
+                <div class="pi-radio-group" id="tcLayerSeg">
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcLayer" id="tcLayerExt" value="external" checked>
+                    <label class="pi-radio-label" for="tcLayerExt">外层</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="tcLayer" id="tcLayerInt" value="internal">
+                    <label class="pi-radio-label" for="tcLayerInt">内层</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tc-param-row">
+                <label>线路长度</label>
+                <div class="calc-form-input">
+                  <input type="number" id="tcLength" value="50" step="1" min="0.1" />
+                  <span class="calc-form-unit">mm</span>
+                  <span class="tc-form-auto-badge" id="tcLengthAutoBadge" hidden>画布</span>
+                </div>
+              </div>
+
+              <div class="tc-param-row">
+                <label>电流</label>
+                <div class="calc-form-input">
+                  <input type="number" id="tcCurrent" value="1" step="0.1" min="0.1" />
+                  <span class="calc-form-unit">A</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Card 3: 结果（双自包含卡片：各含 label+lock+可编辑数值+滑块） -->
+            <div class="tc-param-card">
+              <div class="tc-param-card-title">📊 结果</div>
+
+              <div class="tc-result-main">
+                <!-- 线宽卡片 -->
+                <div class="tc-result-card tc-result-card-w">
+                  <div class="tc-result-card-header">
+                    <span class="tc-result-card-label">线宽</span>
+                    <button class="tc-lock-btn" id="tcLockW" title="点击锁定线宽">🔓</button>
+                  </div>
+                  <div class="tc-result-card-body">
+                    <input type="number" class="tc-result-card-input" id="tcResultWidth" value="0.354" step="0.001" min="0.01" />
+                    <span class="tc-result-card-unit">mm</span>
+                  </div>
+                  <input type="range" class="tc-result-card-slider" id="tcWidthSlider" min="0.05" max="5" step="0.001" value="0.354" />
+                </div>
+
+                <!-- 温升卡片 -->
+                <div class="tc-result-card tc-result-card-dt">
+                  <div class="tc-result-card-header">
+                    <span class="tc-result-card-label">温升</span>
+                    <button class="tc-lock-btn locked" id="tcLockDT" title="已锁定温升">🔒</button>
+                  </div>
+                  <div class="tc-result-card-body">
+                    <input type="number" class="tc-result-card-input" id="tcResultDeltaT" value="10" step="1" min="1" max="180" />
+                    <span class="tc-result-card-unit">°C</span>
+                  </div>
+                  <input type="range" class="tc-result-card-slider" id="tcTempRiseSlider" min="1" max="180" step="1" value="10" />
+                </div>
+              </div>
+
+              <div class="tc-result-cards">
+                <div class="tc-result-mini">
+                  <span class="tc-result-mini-label">轨道电阻</span>
+                  <span class="tc-result-mini-value" id="tcResultResistance">--</span>
+                  <span class="tc-result-mini-unit">mΩ</span>
+                </div>
+                <div class="tc-result-mini">
+                  <span class="tc-result-mini-label">电压降</span>
+                  <span class="tc-result-mini-value" id="tcResultVoltageDrop">--</span>
+                  <span class="tc-result-mini-unit">mV</span>
+                </div>
+                <div class="tc-result-mini">
+                  <span class="tc-result-mini-label">功率损耗</span>
+                  <span class="tc-result-mini-value" id="tcResultPowerLoss">--</span>
+                  <span class="tc-result-mini-unit">mW</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action bar -->
+            <div class="tc-action-bar">
+              <button class="tc-btn tc-btn-primary" id="tcApplyBtn" disabled>应用线宽到选中导线</button>
+            </div>
+
+          </div><!-- .tc-param-panel -->
+
+        </div><!-- .tc-calculator-layout -->
+
+        <div class="calc-disclaimer">
+          <span class="calc-disclaimer-icon">⚠️</span>
+          <span>以上计算结果为理论值，需考虑电流峰值及制造误差，适当补偿后打样确认</span>
         </div>
+
       </section>
       <section class="tab-panel" id="tab-coil-resistance">
-        <div class="calculator-layout">
-          <div class="calc-form">
-            <div class="calc-form-title">线圈板阻值计算</div>
+        <div class="cr-calculator-layout">
+          <!-- LEFT: Diagram -->
+          <div class="cr-diagram-panel">
+            <div class="cr-diagram-panel-title">线圈板阻值计算</div>
+            <div class="cr-diagram">
+              <div class="cr-diagram-row">
+                <!-- 俯视图：蛇形走线 -->
+                <div class="cr-diagram-box">
+                  <div class="cr-diagram-label">俯视图 — 蛇形走线</div>
+                  <svg viewBox="0 0 280 170" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Trace: serpentine -->
+                    <path d="M 30 30 L 210 30 L 210 45 L 30 45 L 30 60 L 210 60 L 210 75 L 30 75 L 30 90 L 210 90 L 210 105 L 30 105 L 30 120 L 210 120"
+                          fill="none" stroke="var(--accent)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+                    <!-- W dimension -->
+                    <line x1="220" y1="30" x2="245" y2="30" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="220" y1="45" x2="245" y2="45" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="235" y1="30" x2="235" y2="45" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <text x="248" y="40" font-size="10" fill="var(--warning)">W</text>
+                    <!-- L arrow left-right -->
+                    <line x1="30" y1="138" x2="210" y2="138" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <polygon points="30,138 36,134 36,142" fill="var(--text-caption)"/>
+                    <polygon points="210,138 204,134 204,142" fill="var(--text-caption)"/>
+                    <text x="120" y="152" font-size="10" fill="var(--warning)" text-anchor="middle">总长 L</text>
+                  </svg>
+                </div>
+                <!-- 截面图 -->
+                <div class="cr-diagram-box">
+                  <div class="cr-diagram-label">截面 A-A</div>
+                  <svg viewBox="0 0 180 170" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Copper layer -->
+                    <rect x="30" y="50" width="120" height="16" rx="2" fill="var(--accent)" opacity="0.85"/>
+                    <!-- Substrate -->
+                    <rect x="30" y="66" width="120" height="60" rx="2" fill="#f59e0b" opacity="0.25" stroke="#d97706" stroke-width="0.8"/>
+                    <text x="90" y="102" font-size="10" fill="#d97706" text-anchor="middle">PI 基材</text>
+                    <!-- t dimension -->
+                    <line x1="155" y1="50" x2="155" y2="66" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="152" y1="50" x2="158" y2="50" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="152" y1="66" x2="158" y2="66" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <text x="160" y="60" font-size="10" fill="var(--warning)">t</text>
+                    <!-- W dimension -->
+                    <line x1="30" y1="42" x2="150" y2="42" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="30" y1="40" x2="30" y2="44" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="150" y1="40" x2="150" y2="44" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <text x="90" y="38" font-size="10" fill="var(--warning)" text-anchor="middle">W</text>
+                    <!-- Current arrow -->
+                    <polygon points="75,130 75,145 70,140 70,140 80,140 80,140 75,145" fill="var(--accent-text)" opacity="0.6"/>
+                    <text x="90" y="142" font-size="9" fill="var(--text-caption)">电流方向</text>
+                  </svg>
+                </div>
+              </div>
+              <!-- Formula -->
+              <div class="cr-diagram-formula">R = ρ · L / (t · W)</div>
+            </div>
+          </div>
+          <!-- RIGHT: Parameter Form -->
+          <div class="cr-param-panel">
 
             <div class="calc-form-item">
               <span class="calc-form-label"><span class="req">*</span>计算模式：</span>
-              <div class="calc-form-radio">
-                <label><input type="radio" name="crMode" value="length" checked> 算线长</label>
-                <label><input type="radio" name="crMode" value="width"> 算线宽</label>
+              <div class="pi-radio-group">
+                <div class="pi-radio-option">
+                  <input type="radio" name="crMode" id="crModeLength" value="length" checked>
+                  <label class="pi-radio-label" for="crModeLength">算线长</label>
+                </div>
+                <div class="pi-radio-option">
+                  <input type="radio" name="crMode" id="crModeWidth" value="width">
+                  <label class="pi-radio-label" for="crModeWidth">算线宽</label>
+                </div>
               </div>
             </div>
 
@@ -623,9 +786,33 @@
 
             <div class="calc-form-item">
               <span class="calc-form-label"><span class="req">*</span>铜厚：</span>
-              <div class="calc-form-input">
-                <input type="number" id="crCopperThickness" value="35" step="1" min="1" />
-                <span class="calc-form-unit">μm</span>
+              <div class="calc-form-input" style="flex-wrap:wrap; gap:4px;">
+                <div class="pi-radio-group" id="crCopperSeg">
+                  <div class="pi-radio-option">
+                    <input type="radio" name="crCopperThickness" id="crCopper12" value="12">
+                    <label class="pi-radio-label" for="crCopper12">0.33oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="crCopperThickness" id="crCopper18" value="18">
+                    <label class="pi-radio-label" for="crCopper18">0.5oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="crCopperThickness" id="crCopper35" value="35" checked>
+                    <label class="pi-radio-label" for="crCopper35">1.0oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="crCopperThickness" id="crCopper70" value="70">
+                    <label class="pi-radio-label" for="crCopper70">2.0oz</label>
+                  </div>
+                  <div class="pi-radio-option">
+                    <input type="radio" name="crCopperThickness" id="crCopperCustom" value="custom">
+                    <label class="pi-radio-label" for="crCopperCustom">自定义</label>
+                  </div>
+                </div>
+                <div class="tc-custom-input" id="crCopperCustomWrap" hidden>
+                  <input type="number" id="crCopperThicknessCustom" value="35" min="1" step="1" />
+                  <span class="calc-form-unit">μm</span>
+                </div>
               </div>
             </div>
 
@@ -663,13 +850,81 @@
               <span class="calc-result-label">需要线宽：</span>
               <span class="calc-result-value" id="crResultWidth">-- mm</span>
             </div>
+
           </div>
         </div>
+
+        <div class="calc-disclaimer">
+          <span class="calc-disclaimer-icon">⚠️</span>
+          <span>以上计算结果为理论值，需考虑制造误差，线宽建议加宽 10μm（≈0.4mil）做补偿，并打样确认</span>
+        </div>
+
       </section>
-      <section class="tab-panel" id="tab-via-current">
-        <div class="calculator-layout">
-          <div class="calc-form">
-            <div class="calc-form-title">过孔电流计算 (IPC-2221)</div>
+            <section class="tab-panel" id="tab-via-current">
+        <div class="vc-calculator-layout">
+          <!-- LEFT: Diagram -->
+          <div class="vc-diagram-panel">
+            <div class="vc-diagram-panel-title">过孔电流计算 (IPC-2221)</div>
+            <div class="vc-diagram">
+              <div class="vc-diagram-row">
+                <!-- 截面图：过孔侧视 -->
+                <div class="vc-diagram-box">
+                  <div class="vc-diagram-label">截面图 — 过孔导电模型</div>
+                  <svg viewBox="0 0 280 170" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Top copper layer -->
+                    <rect x="30" y="24" width="220" height="10" rx="2" fill="var(--accent)" opacity="0.85"/>
+                    <!-- PCB substrate -->
+                    <rect x="30" y="34" width="220" height="92" rx="3" fill="#f59e0b" opacity="0.14" stroke="#d97706" stroke-width="0.6" stroke-dasharray="4 2"/>
+                    <!-- Bottom copper layer -->
+                    <rect x="30" y="126" width="220" height="10" rx="2" fill="var(--accent)" opacity="0.85"/>
+                    <!-- Via barrel: left wall -->
+                    <rect x="102" y="24" width="8" height="112" rx="1" fill="var(--accent)" opacity="0.75"/>
+                    <!-- Via barrel: right wall -->
+                    <rect x="170" y="24" width="8" height="112" rx="1" fill="var(--accent)" opacity="0.75"/>
+                    <!-- Hole interior shading -->
+                    <rect x="110" y="24" width="60" height="112" fill="var(--card-diagram-bg)" opacity="0.55"/>
+                    <!-- D annotation -->
+                    <line x1="110" y1="150" x2="170" y2="150" stroke="var(--warning)" stroke-width="1.2"/>
+                    <line x1="110" y1="147" x2="110" y2="153" stroke="var(--warning)" stroke-width="1"/>
+                    <line x1="170" y1="147" x2="170" y2="153" stroke="var(--warning)" stroke-width="1"/>
+                    <text x="140" y="166" font-size="13" fill="var(--warning)" text-anchor="middle" font-weight="600">D (孔内径)</text>
+                    <!-- t_wall annotation -->
+                    <text x="76" y="55" font-size="13" fill="var(--warning)" text-anchor="end" font-weight="600">t</text>
+                    <text x="76" y="71" font-size="11" fill="var(--text-caption)" text-anchor="end">孔壁铜厚</text>
+                    <line x1="80" y1="64" x2="102" y2="64" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <!-- Conducting area formula -->
+                    <text x="250" y="160" font-size="12" fill="var(--accent-text)" text-anchor="end">A = π·D·t</text>
+                    <!-- Dimension helper inside hole -->
+                    <text x="140" y="130" font-size="10" fill="var(--accent-text)" text-anchor="middle" opacity="0.5">通孔</text>
+                  </svg>
+                </div>
+                <!-- 俯视图 -->
+                <div class="vc-diagram-box">
+                  <div class="vc-diagram-label">俯视图 — 环形焊盘</div>
+                  <svg viewBox="0 0 180 170" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Pad outer ring -->
+                    <circle cx="75" cy="78" r="60" fill="var(--accent)" opacity="0.25" stroke="var(--accent)" stroke-width="1.5"/>
+                    <!-- Via hole -->
+                    <circle cx="75" cy="78" r="28" fill="var(--card-diagram-bg)" stroke="var(--accent)" stroke-width="1.2" opacity="0.7"/>
+                    <!-- D annotation -->
+                    <line x1="47" y1="78" x2="103" y2="78" stroke="var(--warning)" stroke-width="1.2"/>
+                    <line x1="47" y1="75" x2="47" y2="81" stroke="var(--warning)" stroke-width="1"/>
+                    <line x1="103" y1="75" x2="103" y2="81" stroke="var(--warning)" stroke-width="1"/>
+                    <text x="75" y="97" font-size="13" fill="var(--warning)" text-anchor="middle" font-weight="600">D</text>
+                    <!-- t_wall annotation -->
+                    <line x1="75" y1="25" x2="75" y2="50" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="75" y1="25" x2="75" y2="27" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <line x1="75" y1="48" x2="75" y2="50" stroke="var(--text-caption)" stroke-width="0.8"/>
+                    <text x="42" y="38" font-size="13" fill="var(--warning)" text-anchor="end" font-weight="600">t</text>
+                  </svg>
+                </div>
+              </div>
+              <!-- Formula -->
+              <div class="vc-diagram-formula">I = k · ΔT<sup>0.44</sup> · A<sup>0.725</sup>&nbsp;&nbsp;&nbsp;k = 0.02&nbsp;&nbsp;&nbsp;A = π · D · t<sub>wall</sub></div>
+            </div>
+          </div>
+          <!-- RIGHT: Parameter Form -->
+          <div class="vc-param-panel">
 
             <div class="calc-form-item">
               <span class="calc-form-label"><span class="req">*</span>最大温升：</span>
@@ -714,11 +969,18 @@
               <span class="calc-result-label">最少过孔数：</span>
               <span class="calc-result-value" id="vcResultMinVias">-- 个</span>
             </div>
+
           </div>
         </div>
+
+        <div class="calc-disclaimer">
+          <span class="calc-disclaimer-icon">⚠️</span>
+          <span>以上计算结果为理论值，需考虑电流峰值及制造误差，适当补偿后打样确认</span>
+        </div>
+
       </section>
 
-    </div><!-- .tab-content-container -->
+</div><!-- .tab-content-container -->
   </div><!-- .main-content -->
 
 </div><!-- .glass-panel -->

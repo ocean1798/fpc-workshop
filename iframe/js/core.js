@@ -360,8 +360,11 @@ window.FPC = window.FPC || {};
 			FPC.stopPolling();
 			if (FPC.PiCalculator && FPC.PiCalculator.stopPolling)
 				FPC.PiCalculator.stopPolling();
+			if (FPC.TraceCurrentCalc && FPC.TraceCurrentCalc.stopPolling)
+				FPC.TraceCurrentCalc.stopPolling();
 			if (tabId === 'press-pad') { FPC.startPolling(); }
 			else if (tabId === 'pi-reinforce') { FPC.PiCalculator.startPolling(); }
+			else if (tabId === 'trace-current') { FPC.TraceCurrentCalc.startPolling(); }
 			this.currentTab = tabId;
 		},
 	};

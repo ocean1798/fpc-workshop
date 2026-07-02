@@ -10,7 +10,9 @@ window.FPC = window.FPC || {};
 	const RHO = 0.01851; // 铜电阻率 Ω·mm²/m
 
 	const CoilResistanceCalc = {
-		$copperThickness: null,
+		$copperSeg: null,
+		$copperCustomWrap: null,
+		$copperCustomInput: null,
 		$targetResistance: null,
 		$targetResistanceRow: null,
 		$lineWidth: null,
@@ -23,7 +25,9 @@ window.FPC = window.FPC || {};
 		$resultWidthItem: null,
 
 		init() {
-			this.$copperThickness = document.getElementById('crCopperThickness');
+			this.$copperSeg = document.getElementById('crCopperSeg');
+			this.$copperCustomWrap = document.getElementById('crCopperCustomWrap');
+			this.$copperCustomInput = document.getElementById('crCopperThicknessCustom');
 			this.$targetResistance = document.getElementById('crTargetResistance');
 			this.$targetResistanceRow = document.getElementById('crTargetResistanceRow');
 			this.$lineWidth = document.getElementById('crLineWidth');
@@ -42,13 +46,59 @@ window.FPC = window.FPC || {};
 				radio.addEventListener('change', () => { self.onModeChange(); self.calculate(); });
 			});
 
-			[this.$copperThickness, this.$targetResistance, this.$lineWidth, this.$lineLength].forEach((el) => {
+			// Copper thickness radio group
+			if (this.$copperSeg) {
+				this.$copperSeg.addEventListener('change', (e) => {
+					if (!e.target.matches('input[name="crCopperThickness"]')) return;
+					self._onCopperSegChange();
+					self.calculate();
+				});
+			}
+			if (this.$copperCustomInput) {
+				this.$copperCustomInput.addEventListener('input', () => {
+					// Auto-switch to "自定义" when user types in custom input
+					self._autoSelectCustom();
+					self.calculate();
+				});
+				this.$copperCustomInput.addEventListener('change', () => { self.calculate(); });
+			}
+
+			[this.$targetResistance, this.$lineWidth, this.$lineLength].forEach((el) => {
 				el.addEventListener('change', () => { self.calculate(); });
 				el.addEventListener('input', () => { self.calculate(); });
 			});
 
 			this.onModeChange();
 			this.calculate();
+		},
+
+		_onCopperSegChange() {
+			const checked = this.$copperSeg.querySelector('input[name="crCopperThickness"]:checked');
+			const isCustom = checked && checked.value === 'custom';
+			if (this.$copperCustomWrap) {
+				this.$copperCustomWrap.hidden = !isCustom;
+			}
+		},
+
+		_autoSelectCustom() {
+			// When user modifies the custom input, switch radio to "自定义"
+			const checked = this.$copperSeg.querySelector('input[name="crCopperThickness"]:checked');
+			if (!checked || checked.value !== 'custom') {
+				const customRadio = this.$copperSeg.querySelector('input[name="crCopperThickness"][value="custom"]');
+				if (customRadio) {
+					customRadio.checked = true;
+					this._onCopperSegChange();
+				}
+			}
+		},
+
+		_getCopperThickness() {
+			const checked = this.$copperSeg ? this.$copperSeg.querySelector('input[name="crCopperThickness"]:checked') : null;
+			if (!checked) return 35;
+			if (checked.value === 'custom') {
+				return this.$copperCustomInput ? (Number.parseFloat(this.$copperCustomInput.value) || 0) : 0;
+			}
+			return Number.parseFloat(checked.value) || 0;
 		},
 
 		getMode() {
@@ -78,7 +128,7 @@ window.FPC = window.FPC || {};
 
 		calculate() {
 			const mode = this.getMode();
-			const t = (Number.parseFloat(this.$copperThickness.value) || 0) / 1000; // μm → mm
+			const t = this._getCopperThickness() / 1000; // μm → mm
 			const R = Number.parseFloat(this.$targetResistance.value) || 0; // Ω
 			const W = Number.parseFloat(this.$lineWidth.value) || 0; // mm
 			const L = Number.parseFloat(this.$lineLength.value) || 0; // mm
@@ -93,7 +143,8 @@ window.FPC = window.FPC || {};
 					this.$resultWidth.textContent = '-- mm';
 					return;
 				}
-				const resultL = R * t * W / RHO;
+				// RHO in Ohm.mm2/m, L input in mm -> result in m, *1000 -> mm
+				const resultL = R * t * W / RHO * 1000;
 				this.$resultLength.textContent = `${resultL.toFixed(2)} mm`;
 				this.$resultWidth.textContent = '-- mm';
 			}
@@ -104,7 +155,8 @@ window.FPC = window.FPC || {};
 					this.$resultWidth.textContent = '-- mm';
 					return;
 				}
-				const resultW = RHO * L / (R * t);
+				// RHO in Ohm.mm2/m, L in mm -> divide by 1000 for mm
+				const resultW = RHO * L / (R * t) / 1000;
 				this.$resultLength.textContent = '-- mm';
 				this.$resultWidth.textContent = `${resultW.toFixed(3)} mm`;
 			}

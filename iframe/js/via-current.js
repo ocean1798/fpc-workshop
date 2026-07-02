@@ -7,7 +7,7 @@ window.FPC = window.FPC || {};
 (function () {
 	'use strict';
 
-	const K = 0.048; // 外层系数（过孔视为外层）
+	const K = 0.02; // 过孔系数（与嘉立创一致，IPC-2221 内层用于过孔）
 
 	const ViaCurrentCalc = {
 		$diameter: null,

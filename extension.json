@@ -3,13 +3,14 @@
 	"uuid": "2fab9af7377a4a069084f51d9f11fc3f",
 	"displayName": "FPC 工坊",
 	"description": "焊盘阻焊压PAD 一键变换，NSMD → SMD 自动转换，提升 FPC 焊盘结合力",
-	"version": "26.6.21",
+	"version": "26.7.2",
 	"publisher": "Ocean",
 	"engines": {
 		"eda": ">=3.2.152"
 	},
 	"license": "Apache-2.0",
 	"homepage": "https://github.com/ocean1798/fpc-workshop",
+	"repository": "https://github.com/ocean1798/fpc-workshop",
 	"categories": "PCB",
 	"keywords": [
 		"FPC",

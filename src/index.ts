@@ -6,7 +6,7 @@ export function activate(status?: 'onStartupFinished', arg?: string): void {
 }
 
 export function openFpcWorkshop(): void {
-	const iframeApi = eda.sys_IFrame;
+	var iframeApi = eda.sys_IFrame;
 	iframeApi.openIFrame('/iframe/index.html', 1000, 700, 'fpc-workshop-ui', {
 		maximizeButton: true,
 		minimizeButton: true,
@@ -15,7 +15,7 @@ export function openFpcWorkshop(): void {
 }
 
 export function about(): void {
-	const dialogApi = eda.sys_Dialog;
+	var dialogApi = eda.sys_Dialog;
 	dialogApi.showInformationMessage(
 		`${extensionConfig.displayName} v${extensionConfig.version}\n\n`
 		+ `一键将 NSMD 焊盘变换为 SMD 压PAD 设计，提升 FPC 焊盘结合力约 47%`,

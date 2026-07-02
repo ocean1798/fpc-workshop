@@ -370,12 +370,195 @@ body {
 }
 
 .calc-form-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-title);
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--card-divider);
+  transition: color 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+/* ---- Coil Resistance Diagram ---- */
+.cr-diagram {
+  background: rgba(var(--accent-rgb), 0.04);
+  border: 1px solid rgba(var(--accent-rgb), 0.10);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+.cr-diagram-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.cr-diagram-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.cr-diagram-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-caption);
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.cr-diagram-box svg {
+  width: 100%;
+  display: block;
+}
+
+/* ---- Coil Resistance Two-Column Layout ---- */
+.cr-calculator-layout {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cr-diagram-panel {
+  background: var(--card-diagram-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  overflow-y: auto;
+}
+
+.cr-diagram-panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-title);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--card-divider);
+  transition: color 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+.cr-diagram-panel .cr-diagram {
+  margin-bottom: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cr-param-panel {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 4px 0 4px;
+}
+
+/* ---- Via Current Diagram ---- */
+.vc-diagram {
+  background: rgba(var(--accent-rgb), 0.04);
+  border: 1px solid rgba(var(--accent-rgb), 0.10);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+.vc-diagram-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.vc-diagram-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.vc-diagram-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-caption);
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.vc-diagram-box svg {
+  width: 100%;
+  display: block;
+}
+
+.vc-diagram-formula {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--accent-text);
+  padding: 6px 0;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+  line-height: 1.5;
+}
+
+/* ---- Via Current Two-Column Layout ---- */
+.vc-calculator-layout {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.vc-diagram-panel {
+  background: var(--card-diagram-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  overflow-y: auto;
+}
+
+.vc-diagram-panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-title);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--card-divider);
+  transition: color 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+.vc-diagram-panel .vc-diagram {
+  margin-bottom: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vc-param-panel {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 4px 0 4px;
+}
+
+.cr-diagram-formula {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent-text);
+  padding: 6px 0;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.10);
   transition: color 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
 }
 
@@ -396,7 +579,7 @@ body {
 }
 
 .calc-form-label .req {
-  color: #f56c6c;
+  color: var(--text-caption);
   margin-right: 2px;
 }
 
@@ -542,6 +725,33 @@ body {
   background: var(--card-divider);
   margin: 16px 0;
   transition: background 0.35s var(--ease-out);
+}
+
+.calc-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-body);
+  line-height: 1.55;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255, 159, 10, 0.10);
+  border: 1px solid rgba(255, 159, 10, 0.18);
+  border-left: 3px solid var(--warning);
+  transition: color 0.35s var(--ease-out), background 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+[data-theme="light"] .calc-disclaimer {
+  background: rgba(255, 149, 0, 0.08);
+  border-color: rgba(255, 149, 0, 0.15);
+}
+
+.calc-disclaimer-icon {
+  flex-shrink: 0;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 /* Reference table */
@@ -1027,4 +1237,557 @@ body {
   /* Ensure thin layers stay visible when stacked */
   .pi-layer-face-2d { min-height: 8px; }
   .pi-layer-name-2d { font-size: 12px; }
+}
+
+/* ========================================================================
+   Trace Current Calculator v4 — Left I-W Chart + Right Card Dashboard
+   ======================================================================== */
+
+.tc-calculator-layout {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---- Left: I-W Chart Panel ---- */
+.tc-chart-panel {
+  background: var(--card-diagram-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  min-height: 0;
+  overflow-y: auto;
+  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+/* IPC-2221 formula (compact, top of chart) */
+.tc-chart-formula {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  color: var(--text-body);
+  text-align: center;
+  padding: 4px 0 6px;
+  border-bottom: 1px solid var(--card-divider);
+}
+
+.tc-chart-formula-note {
+  color: var(--text-caption);
+  font-size: 10px;
+  margin-left: 6px;
+}
+
+/* SVG chart wrapper */
+.tc-chart-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.tc-chart-container svg {
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+}
+
+/* Chart readout: I / W inputs below chart */
+.tc-chart-readout {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 6px 0 4px;
+  border-top: 1px solid var(--card-divider);
+}
+
+.tc-chart-readout-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tc-chart-readout-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-caption);
+  width: 18px;
+  text-align: center;
+}
+
+.tc-chart-readout-input {
+  width: 72px;
+  padding: 4px 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  color: var(--text-body);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  text-align: right;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.tc-chart-readout-input:focus {
+  border-color: var(--accent);
+}
+
+.tc-chart-readout-unit {
+  font-size: 11px;
+  color: var(--text-caption);
+  min-width: 18px;
+}
+
+/* ---- Right: Parameter Panel (card-based dashboard) ---- */
+.tc-param-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* ---- Parameter Card (matches PI reinforce style) ---- */
+.tc-param-card {
+  background: var(--card-control-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  padding: 10px 14px;
+  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+
+.tc-param-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-section);
+  margin-bottom: 8px;
+}
+
+/* Formula line inside param card */
+.tc-param-formula {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  color: var(--text-body);
+  opacity: 0.7;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-divider);
+}
+
+/* Parameter row: label + control */
+.tc-param-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  flex-wrap: wrap;
+}
+
+.tc-param-row > label {
+  font-size: 12px;
+  color: var(--text-caption);
+  min-width: 56px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.tc-param-row .calc-form-input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tc-param-row .calc-form-input input[type="number"] {
+  flex: 1;
+  padding: 5px 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  color: var(--text-body);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.tc-param-row .calc-form-input input[type="number"]:focus {
+  border-color: var(--accent);
+}
+
+.tc-param-row .calc-form-unit {
+  font-size: 11px;
+  color: var(--text-caption);
+}
+
+/* ---- Segment Control (replaces radio groups) ---- */
+.tc-seg-control {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tc-seg-btn {
+  flex: 1;
+  padding: 5px 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-caption);
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--input-border);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-family: inherit;
+  outline: none;
+}
+
+.tc-seg-btn:last-child {
+  border-right: none;
+}
+
+.tc-seg-btn:hover {
+  background: rgba(var(--accent-rgb), 0.08);
+}
+
+.tc-seg-btn.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Custom input (hidden until "自定义" selected) */
+.tc-custom-input {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+}
+
+.tc-custom-input input[type="number"] {
+  width: 56px;
+  padding: 4px 6px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  color: var(--text-body);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.tc-custom-input input[type="number"]:focus {
+  border-color: var(--accent);
+}
+
+.tc-custom-input .calc-form-unit {
+  font-size: 11px;
+  color: var(--text-caption);
+}
+
+/* ---- Selection Status ---- */
+.tc-sel-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.tc-sel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.tc-sel-dot.active {
+  background: #30D158;
+  box-shadow: 0 0 6px rgba(48, 209, 88, 0.4);
+}
+
+.tc-sel-text {
+  font-size: 12px;
+  color: var(--text-body);
+}
+
+.tc-sel-net-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--text-body);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.tc-sel-net-total {
+  font-size: 12px;
+  color: var(--text-caption);
+}
+
+.tc-sel-detail {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0 0 16px;
+  font-size: 11px;
+  color: var(--text-caption);
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+}
+
+/* ---- Results Dashboard ---- */
+.tc-result-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tc-result-card {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 6px;
+	  padding: 10px 10px 8px;
+	  border-radius: 8px;
+	  border: 1px solid var(--card-border);
+	  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+	}
+
+	.tc-result-card-header {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	}
+
+	.tc-result-card-label {
+	  font-size: 11px;
+	  color: var(--text-caption);
+	  font-weight: 500;
+	}
+
+	.tc-result-card-body {
+	  display: flex;
+	  align-items: baseline;
+	  justify-content: center;
+	  gap: 4px;
+	  padding: 0 6px;
+	}
+
+	.tc-result-card-input {
+	  flex: 1 1 auto;
+	  min-width: 0;
+	  max-width: 90px;
+	  padding: 4px 6px;
+	  background: transparent;
+	  border: 1px solid transparent;
+	  border-radius: 4px;
+	  color: var(--accent-text);
+	  font-size: 18px;
+	  font-weight: 700;
+	  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+	  font-variant-numeric: tabular-nums;
+	  text-align: center;
+	  outline: none;
+	  transition: border-color 0.2s ease, background 0.2s ease;
+	  -moz-appearance: textfield;
+	}
+
+	.tc-result-card-input::-webkit-outer-spin-button,
+	.tc-result-card-input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+
+	.tc-result-card-input:hover {
+	  border-color: var(--card-divider);
+	}
+
+	.tc-result-card-input:focus {
+	  border-color: var(--accent);
+	  background: #fff;
+	}
+
+	/* 防御 Chrome 自动填充样式泄漏和宿主页穿透 */
+	.tc-result-card-input:-webkit-autofill,
+	.tc-result-card-input:-webkit-autofill:hover,
+	.tc-result-card-input:-webkit-autofill:focus {
+	  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+	  -webkit-text-fill-color: var(--accent-text);
+	  transition: background-color 5000s ease-in-out 0s;
+	}
+
+	.tc-result-card-dt .tc-result-card-input {
+	  color: var(--danger);
+	}
+
+	.tc-result-card-unit {
+	  font-size: 11px;
+	  color: var(--text-caption);
+	}
+
+	.tc-result-card-slider {
+	  width: 100%;
+	  height: 4px;
+	  -webkit-appearance: none;
+	  appearance: none;
+	  background: var(--card-divider);
+	  border-radius: 2px;
+	  outline: none;
+	  cursor: pointer;
+	}
+
+	.tc-result-card-slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  width: 14px;
+	  height: 14px;
+	  border-radius: 50%;
+	  background: var(--accent);
+	  border: 2px solid #fff;
+	  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+	  cursor: pointer;
+	}
+
+	.tc-result-card-slider:disabled {
+	  opacity: 0.35;
+	  cursor: not-allowed;
+	}
+
+	.tc-lock-btn {
+	  background: none;
+	  border: none;
+	  font-size: 14px;
+	  cursor: pointer;
+	  padding: 0 2px;
+	  line-height: 1;
+	  opacity: 0.5;
+	  transition: opacity 0.2s;
+	}
+
+	.tc-lock-btn:hover { opacity: 1; }
+	.tc-lock-btn.locked { opacity: 0.9; }
+
+	.tc-result-card-w {
+	  background: var(--card-diagram-bg);
+	  border-color: var(--card-border);
+	}
+
+	.tc-result-card-dt {
+	  background: var(--card-diagram-bg);
+	}
+
+	/* ---- 底部指标小卡片 ---- */
+	.tc-result-cards {
+	  display: grid;
+	  grid-template-columns: repeat(3, 1fr);
+	  gap: 8px;
+	  margin-top: 10px;
+	}
+
+	.tc-result-mini {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  gap: 3px;
+	  padding: 10px 6px 8px;
+	  border-radius: 8px;
+	  background: var(--card-diagram-bg);
+	  border: 1px solid var(--card-border);
+	}
+
+	.tc-result-mini-label {
+	  font-size: 10px;
+	  color: var(--text-caption);
+	  font-weight: 500;
+	  letter-spacing: 0.02em;
+	}
+
+	.tc-result-mini-value {
+	  font-size: 15px;
+	  font-weight: 700;
+	  color: var(--text-body);
+	  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+	  font-variant-numeric: tabular-nums;
+	}
+
+	.tc-result-mini-unit {
+	  font-size: 10px;
+	  color: var(--text-caption);
+	  margin-top: -2px;
+	}
+
+	.tc-action-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.tc-btn {
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+
+.tc-btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.tc-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.tc-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .tc-calculator-layout {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .tc-chart-container svg {
+    max-height: 220px;
+  }
+}
+
+/* "画布" auto-fill badge next to length/layer inputs */
+.tc-form-auto-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: rgba(var(--accent-rgb), 0.12);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 4px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Disabled slider visual state */
+.tc-slider-container input[type="range"]:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
