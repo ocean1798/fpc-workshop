@@ -3,10 +3,16 @@
 ## 新增
 
 1. 线路温升 I-W 图表双模式：根据锁定参数自动切换 Y 轴 — ΔT 锁定时显示 W vs I（等温升曲线），W 锁定时显示 ΔT vs I（等线宽曲线）
+2. 自定义铜厚输入框与 radio 按钮融合：「自定义」标签内嵌数字输入，不再分两行显示
+
+## 变更
+
+1. Radio 按钮组间距增大 + 标签加水平内边距（`gap: 8px; padding: 5px 8px`），文字不再紧贴边框
 
 ## 修复
 
 1. 移除 Google Fonts `@import`（`fonts.googleapis.com` 在国内被墙，CSS `@import` 阻塞渲染导致页面加载超时 30-60 秒），改用系统本地等宽字体 fallback
+2. CSS 选择器精确化（`.pi-radio-option > input`），避免自定义铜厚数字输入框被误隐藏
 
 # 26.7.2
 

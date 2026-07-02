@@ -485,12 +485,12 @@
 }
 
 /* ---- Radio Group ---- */
-.pi-radio-group { display: flex; gap: 4px; }
+.pi-radio-group { display: flex; gap: 8px; }
 .pi-radio-option { flex: 1; position: relative; }
-.pi-radio-option input { position: absolute; opacity: 0; }
+.pi-radio-option > input { position: absolute; opacity: 0; }
 .pi-radio-label {
   display: block;
-  padding: 5px 0;
+  padding: 5px 8px;
   text-align: center;
   background: var(--input-bg);
   border: 1px solid var(--input-border);
@@ -505,6 +505,36 @@
   border-color: var(--accent);
   color: var(--accent-text);
   font-weight: 600;
+}
+
+/* ---- Custom Radio (inline input) ---- */
+.pi-radio-option-custom { flex: 2.2; min-width: 0; }
+.pi-radio-custom-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+.pi-radio-custom-unit { font-size: 10px; opacity: 0.65; }
+/* high-specificity to override browser user-agent stylesheet */
+.pi-radio-label .pi-radio-custom-row input[type="number"] {
+  width: 34px;
+  height: 20px;
+  padding: 0 3px;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid var(--input-border);
+  border-radius: 3px;
+  background: var(--bg-app);
+  color: var(--text-body);
+  -moz-appearance: textfield;
+}
+.pi-radio-label .pi-radio-custom-row input[type="number"]::-webkit-inner-spin-button,
+.pi-radio-label .pi-radio-custom-row input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* ---- Thickness Grid Picker (3 columns) ---- */

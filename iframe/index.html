@@ -595,14 +595,16 @@
                     <input type="radio" name="tcCopperThickness" id="tcCopper70" value="70">
                     <label class="pi-radio-label" for="tcCopper70">2.0oz</label>
                   </div>
-                  <div class="pi-radio-option">
+                  <div class="pi-radio-option pi-radio-option-custom">
                     <input type="radio" name="tcCopperThickness" id="tcCopperCustom" value="custom">
-                    <label class="pi-radio-label" for="tcCopperCustom">自定义</label>
+                    <label class="pi-radio-label" for="tcCopperCustom">
+                      <span class="pi-radio-custom-row">
+                        <span>自定义</span>
+                        <input type="number" id="tcCopperThicknessCustom" value="35" min="1" step="1" />
+                        <span class="pi-radio-custom-unit">μm</span>
+                      </span>
+                    </label>
                   </div>
-                </div>
-                <div class="tc-custom-input" id="tcCopperCustomWrap" hidden>
-                  <input type="number" id="tcCopperThicknessCustom" value="35" min="1" step="1" />
-                  <span class="calc-form-unit">μm</span>
                 </div>
               </div>
 
@@ -804,14 +806,16 @@
                     <input type="radio" name="crCopperThickness" id="crCopper70" value="70">
                     <label class="pi-radio-label" for="crCopper70">2.0oz</label>
                   </div>
-                  <div class="pi-radio-option">
+                  <div class="pi-radio-option pi-radio-option-custom">
                     <input type="radio" name="crCopperThickness" id="crCopperCustom" value="custom">
-                    <label class="pi-radio-label" for="crCopperCustom">自定义</label>
+                    <label class="pi-radio-label" for="crCopperCustom">
+                      <span class="pi-radio-custom-row">
+                        <span>自定义</span>
+                        <input type="number" id="crCopperThicknessCustom" value="35" min="1" step="1" />
+                        <span class="pi-radio-custom-unit">μm</span>
+                      </span>
+                    </label>
                   </div>
-                </div>
-                <div class="tc-custom-input" id="crCopperCustomWrap" hidden>
-                  <input type="number" id="crCopperThicknessCustom" value="35" min="1" step="1" />
-                  <span class="calc-form-unit">μm</span>
                 </div>
               </div>
             </div>

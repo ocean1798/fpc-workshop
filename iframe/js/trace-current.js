@@ -35,7 +35,7 @@ window.FPC = window.FPC || {};
 		$chartI: null, $chartW: null,
 		$selDot: null, $selText: null,
 		$copperSeg: null, $layerSeg: null,
-		$copperCustomWrap: null, $copperCustomInput: null,
+		$copperCustomInput: null,
 		$current: null, $length: null,
 		$lengthAutoBadge: null,
 		$widthSlider: null, $dtSlider: null,
@@ -66,7 +66,6 @@ window.FPC = window.FPC || {};
 		// Segment controls
 			this.$copperSeg = document.getElementById('tcCopperSeg');
 			this.$layerSeg = document.getElementById('tcLayerSeg');
-			this.$copperCustomWrap = document.getElementById('tcCopperCustomWrap');
 			this.$copperCustomInput = document.getElementById('tcCopperThicknessCustom');
 
 			// Parameters
@@ -416,11 +415,7 @@ window.FPC = window.FPC || {};
 		},
 
 		_onCopperSegChange() {
-			const checked = this.$copperSeg.querySelector('input[name="tcCopperThickness"]:checked');
-			const isCustom = checked && checked.value === 'custom';
-			if (this.$copperCustomWrap) {
-				this.$copperCustomWrap.hidden = !isCustom;
-			}
+			// Custom input is now inline inside the radio label — no visibility toggle needed
 		},
 
 		_autoSelectCopperCustom() {

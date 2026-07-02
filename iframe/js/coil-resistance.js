@@ -11,7 +11,6 @@ window.FPC = window.FPC || {};
 
 	const CoilResistanceCalc = {
 		$copperSeg: null,
-		$copperCustomWrap: null,
 		$copperCustomInput: null,
 		$targetResistance: null,
 		$targetResistanceRow: null,
@@ -26,7 +25,6 @@ window.FPC = window.FPC || {};
 
 		init() {
 			this.$copperSeg = document.getElementById('crCopperSeg');
-			this.$copperCustomWrap = document.getElementById('crCopperCustomWrap');
 			this.$copperCustomInput = document.getElementById('crCopperThicknessCustom');
 			this.$targetResistance = document.getElementById('crTargetResistance');
 			this.$targetResistanceRow = document.getElementById('crTargetResistanceRow');
@@ -73,13 +71,8 @@ window.FPC = window.FPC || {};
 		},
 
 		_onCopperSegChange() {
-			const checked = this.$copperSeg.querySelector('input[name="crCopperThickness"]:checked');
-			const isCustom = checked && checked.value === 'custom';
-			if (this.$copperCustomWrap) {
-				this.$copperCustomWrap.hidden = !isCustom;
-			}
+			// Custom input is now inline inside the radio label — no visibility toggle needed
 		},
-
 		_autoSelectCustom() {
 			// When user modifies the custom input, switch radio to "自定义"
 			const checked = this.$copperSeg.querySelector('input[name="crCopperThickness"]:checked');
