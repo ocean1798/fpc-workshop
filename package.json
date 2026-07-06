@@ -1,14 +1,14 @@
 {
 	"name": "fpc-workshop",
-	"version": "26.7.3",
+	"version": "26.7.4",
 	"description": "FPC 设计增强工具集：压PAD焊盘变换 · PI补强厚度计算 · 走线载流/线圈阻值/过孔电流快速估算",
+	"author": "Ocean",
+	"license": "Apache-2.0",
+	"homepage": "https://pro.lceda.cn/",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ocean1798/fpc-workshop"
 	},
-	"author": "Ocean",
-	"license": "Apache-2.0",
-	"homepage": "https://pro.lceda.cn/",
 	"engines": {
 		"node": ">=20.17.0"
 	},
